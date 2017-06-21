@@ -64,6 +64,7 @@ dependencies {
     // Testing
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.6.1"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
