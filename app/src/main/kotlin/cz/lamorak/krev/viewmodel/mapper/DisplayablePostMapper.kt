@@ -8,7 +8,8 @@ import javax.inject.Inject
 /**
  * Created by ondrej on 15.6.2017.
  */
-class DisplayablePostMapper @Inject constructor(private val dateMapper: Function<Long, String>) : Function<Post, DisplayablePost> {
+class DisplayablePostMapper @Inject constructor(private val dateMapper: Function<Long, String>,
+                                                private val htmlMaper: Function<String?, String?>) : Function<Post, DisplayablePost> {
 
     override fun apply(post: Post): DisplayablePost {
         return DisplayablePost(
@@ -16,7 +17,7 @@ class DisplayablePostMapper @Inject constructor(private val dateMapper: Function
                 author = post.author,
                 title = post.title,
                 subredditName = post.subreddit_name_prefixed,
-                contentHtml = post.selftext_html,
+                contentHtml = htmlMaper.apply(post.selftext_html),
                 commentsCount = post.num_comments,
                 score = post.score,
                 created = dateMapper.apply(post.created),

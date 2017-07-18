@@ -9,6 +9,7 @@ import cz.lamorak.krev.viewmodel.ListingViewModel
 import cz.lamorak.krev.viewmodel.ListingViewModelImpl
 import cz.lamorak.krev.viewmodel.mapper.TimestampDateMapper
 import cz.lamorak.krev.viewmodel.mapper.DisplayablePostMapper
+import cz.lamorak.krev.viewmodel.mapper.HtmlStringMapper
 import dagger.Module
 import dagger.Provides
 import io.reactivex.functions.Function
@@ -26,8 +27,13 @@ class MainModule {
     }
 
     @Provides
-    fun provideDisplayablePostMapper(dateMapper: Function<Long, String>) : Function<Post, DisplayablePost> {
-        return DisplayablePostMapper(dateMapper)
+    fun provideDisplayablePostMapper(dateMapper: Function<Long, String>, htmlMapper: Function<String?, String?>) : Function<Post, DisplayablePost> {
+        return DisplayablePostMapper(dateMapper, htmlMapper)
+    }
+
+    @Provides
+    fun provideHtmlStringMapper() : Function<String?, String?> {
+        return HtmlStringMapper()
     }
 
     @Provides
